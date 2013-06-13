@@ -19,10 +19,9 @@ if __name__ == "__main__":
     
     pilot_compute_description = {
                              "service_url": 'nova+ssh://10.103.114.3:8773/services/Cloud',
-                             #"service_url": 'ssh://ubuntu@172.16.1.28',
                              "working_directory":"/home/ubuntu",
                              "number_of_processes": 1,                             
-                             "vm_id": "ami-00000042",
+                             "vm_id": "ami-00000047",
                              "vm_ssh_username":"ubuntu",
                              "vm_ssh_keyname":"OSDC",
                              "vm_ssh_keyfile":"/glusterfs/users/aluckow/.ssh/osdc_rsa.pub",

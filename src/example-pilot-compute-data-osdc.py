@@ -31,7 +31,6 @@ if __name__ == "__main__":
     pilot_data_description_aws={
                                 "service_url": "ssh://aluckow@sullivan.opensciencedatacloud.org/"+pilot_data_directory,
                                 "size": 100,   
-                                "userkey": "/glusterfs/users/aluckow/.ssh/osdc_rsa"
                               }
     
     
@@ -51,11 +50,10 @@ if __name__ == "__main__":
     pilot_compute_service = PilotComputeService(coordination_url=COORDINATION_URL)
     
     pilot_compute_description = {
-                             #"service_url": 'nova+ssh://10.103.114.3:8773/services/Cloud',
-                             "service_url": 'ssh://ubuntu@172.16.1.28',
+                             "service_url": 'nova+ssh://10.103.114.3:8773/services/Cloud',
                              "working_directory":"/home/ubuntu",
                              "number_of_processes": 1,                             
-                             "vm_id": "ami-00000042",
+                             "vm_id": "ami-00000047",
                              "vm_ssh_username":"ubuntu",
                              "vm_ssh_keyname":"OSDC",
                              "vm_ssh_keyfile":"/glusterfs/users/aluckow/.ssh/osdc_rsa.pub",
@@ -84,12 +82,12 @@ if __name__ == "__main__":
             "error": "stderr.txt",   
             "input_data": [input_data_unit.get_url()],
             # Put files stdout.txt and stderr.txt into output data unit
-            #"output_data": [
-            #                {
-            #                 output_data_unit.get_url(): 
-            #                 ["std*"]
-            #                }
-            #               ]    
+            "output_data": [
+                            {
+                             output_data_unit.get_url(): 
+                             ["std*"]
+                            }
+                           ]    
     }   
     
     compute_unit = compute_data_service.submit_compute_unit(compute_unit_description)
@@ -97,6 +95,7 @@ if __name__ == "__main__":
     compute_data_service.wait()
     
     logger.debug("Output Data Unit: " + str(output_data_unit.list()))
+    output_data_unit.export(".")
     
     logger.info("Terminate Pilot Compute/Data Service")
     compute_data_service.cancel()
